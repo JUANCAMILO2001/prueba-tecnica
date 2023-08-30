@@ -6,9 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+
 
 class LoginController extends Controller
 {
@@ -42,11 +40,6 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    protected function attemptLogin(Request $request)
-    {
-        $field = filter_var($request->input($this->username()), FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-        return Auth::attempt([$field => $request->input($this->username()), 'password' => $request->input('password')], $request->filled('remember'));
-    }
 
 }

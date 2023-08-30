@@ -25,12 +25,12 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="usuername" class="col-md-4 col-form-label text-md-end">{{ __('UserName') }}</label>
+                            <label for="username" class="col-md-4 col-form-label text-md-end">{{ __('UserName') }}</label>
 
                             <div class="col-md-6">
-                                <input id="usuername" type="text" class="form-control @error('usuername') is-invalid @enderror" name="usuername" value="{{ old('usuername') }}" required autocomplete="usuername" autofocus>
+                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
 
-                                @error('usuername')
+                                @error('username')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -39,12 +39,19 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="city" class="col-md-4 col-form-label text-md-end">{{ __('City') }}</label>
+                            <label for="city_id" class="col-md-4 col-form-label text-md-end">{{ __('City') }}</label>
 
                             <div class="col-md-6">
-                                <input id="city" type="text" class="form-control @error('city') is-invalid @enderror" name="city" value="{{ old('city') }}" required autocomplete="usuername" autofocus>
+                                <select required class="form-control @error('city') is-invalid @enderror" name="city_id" id="city_id">
+                                    <option selected disabled>--Selecionar Ciudad--</option>
+                                    @foreach($ciudades as $ciudad)
+                                        <option value="{{$ciudad->id}}">{{$ciudad->name}}</option>
+                                    @endforeach
+                                </select>
 
-                                @error('city')
+
+
+                                @error('city_id')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
