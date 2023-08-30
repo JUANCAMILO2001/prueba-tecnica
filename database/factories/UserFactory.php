@@ -19,13 +19,17 @@ class UserFactory extends Factory
         $username = Str::slug($name, '');
 
         return [
+            'document_type' => $this->faker->randomElement(['Cedula Ciudadania', 'Tarjeta de Identidad', 'Pasaporte']),
+            'document_number' => $this->faker->unique()->numerify('########'),
             'name' => $name,
+            'lastname' => $this->faker->lastName(),
+            'birthdate' => $this->faker->date(),
+            'city_id' => Ciudad::all()->random()->id,
             'username' => $username,
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => bcrypt('admin123'), // password
             'remember_token' => Str::random(10),
-            'city_id' => Ciudad::all()->random()->id,
         ];
     }
 
