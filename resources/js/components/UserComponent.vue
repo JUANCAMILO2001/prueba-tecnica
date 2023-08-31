@@ -247,8 +247,6 @@ export default {
                     this.errores=error.response.data.errors
                 }
             }
-
-
         },
 
 

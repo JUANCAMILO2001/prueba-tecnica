@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserRequest;
 
+
 class UsersController extends Controller
 {
     /**
@@ -109,4 +110,19 @@ class UsersController extends Controller
 
         return response()->json($city);
     }
+    public function getUsersByCity()
+    {
+        $usersByCity = User::select('city_id', \DB::raw('count(*) as user_count'))
+            ->groupBy('city_id')
+            ->get();
+
+        return response()->json($usersByCity);
+    }
+    public function getCityNames(Request $request)
+    {
+        $cityIds = $request->input('cityIds');
+        $cityNames = Ciudad::whereIn('id', $cityIds)->pluck('name');
+        return response()->json($cityNames);
+    }
+
 }

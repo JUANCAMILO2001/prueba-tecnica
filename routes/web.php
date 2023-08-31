@@ -23,5 +23,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::apiResource('/ciudads',CiudadController::class )->middleware('auth');
 Route::apiResource('/users',UsersController::class )->middleware('auth');
-Route::get('/ciudads/{id}', [UsersController::class, 'getCity']);
+Route::get('/ciudads/{id}', [UsersController::class, 'getCity'])->middleware('auth');
+Route::get('/users-by-city', [UsersController::class, 'getUsersByCity'])->middleware('auth');
+Route::get('/get-city-names', [UsersController::class, 'getCityNames'])->middleware('auth');
 
