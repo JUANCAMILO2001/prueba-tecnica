@@ -43,8 +43,8 @@
                                         <td title="Personas">{{ciud.population}}</td>
                                         <td>
                                             <div class="btn-group">
-                                                <a @click="modificar=true; abrirModal(ciud);"  class="btn btn-warning">Editar</a>
-                                                <button  @click="eliminar(ciud.id)" class="btn btn-danger">Eliminar</button>
+                                                <a title="Editar" @click="modificar=true; abrirModal(ciud);"  class="btn btn-warning"><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
+                                                <button title="Eliminar" @click="eliminar(ciud.id)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                             </div>
                                         </td>
                                     </tr>

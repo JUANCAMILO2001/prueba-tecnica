@@ -2,12 +2,17 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <h2 class="text-center">Gráfica de Ciudades</h2>
+                <h2 class="text-center">Gráficas</h2>
             </div>
             <div class="card-body" >
-                <div className="chart-container" style="height: 50vh;">
-                    <canvas ref="chartCanvas"></canvas>
-                </div>
+               <div class="row">
+                   <div class="col-12">
+                       <h3>Gráfica de Ciudades con Usurios</h3>
+                       <div className="chart-container" style="height: 50vh;">
+                           <canvas ref="chartCanvas"></canvas>
+                       </div>
+                   </div>
+               </div>
             </div>
         </div>
     </div>
@@ -47,7 +52,12 @@ export default {
                             {
                                 label: 'Usuarios por Ciudad',
                                 data: userCounts,
-                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.6)',
+                                    'rgba(54, 162, 235, 0.6)',
+                                    'rgba(54,235,96,0.6)',
+                                    // Añade más colores de fondo si es necesario
+                                ],
                                 borderColor: 'rgba(75, 192, 192, 1)',
                                 borderWidth: 1,
                             },

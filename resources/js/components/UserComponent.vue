@@ -69,8 +69,8 @@
                                     <td>{{u.username}}</td>
                                     <td>
                                         <div class="btn-group">
-                                            <a @click="modificar=true; abrirModal(u);"  class="btn btn-warning">Editar</a>
-                                            <button  @click="eliminar(u.id)" class="btn btn-danger">Eliminar</button>
+                                            <a title="Editar" @click="modificar=true; abrirModal(u);"  class="btn btn-warning"><i class="fa fa-pencil-square" aria-hidden="true"></i></a>
+                                            <button title="Eliminar"  @click="eliminar(u.id)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                         </div>
                                     </td>
                                 </tr>

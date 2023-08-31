@@ -15,6 +15,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
 
 
     <!-- Styles -->
@@ -24,6 +25,13 @@
             display: list-item;
             opacity: 1;
             background: rgba(44,38,75,0.849);
+        }
+        .table-responsive{
+            max-height: 450px;
+            overflow-y: scroll;
+        }
+        .btn-special{
+            margin-left: 6px;
         }
     </style>
 </head>

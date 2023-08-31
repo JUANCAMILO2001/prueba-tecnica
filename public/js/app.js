@@ -5096,6 +5096,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -5163,7 +5168,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   datasets: [{
                     label: 'Usuarios por Ciudad',
                     data: userCounts,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(54,235,96,0.6)'
+                    // Añade más colores de fondo si es necesario
+                    ],
+
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1
                   }]
@@ -32979,14 +32987,20 @@ var render = function () {
       _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
-        _c(
-          "div",
-          {
-            staticStyle: { height: "50vh" },
-            attrs: { className: "chart-container" },
-          },
-          [_c("canvas", { ref: "chartCanvas" })]
-        ),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-12" }, [
+            _c("h3", [_vm._v("Gráfica de Ciudades con Usurios")]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticStyle: { height: "50vh" },
+                attrs: { className: "chart-container" },
+              },
+              [_c("canvas", { ref: "chartCanvas" })]
+            ),
+          ]),
+        ]),
       ]),
     ]),
   ])
@@ -32997,7 +33011,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h2", { staticClass: "text-center" }, [_vm._v("Gráfica de Ciudades")]),
+      _c("h2", { staticClass: "text-center" }, [_vm._v("Gráficas")]),
     ])
   },
 ]
@@ -33138,6 +33152,7 @@ var render = function () {
                             "a",
                             {
                               staticClass: "btn btn-warning",
+                              attrs: { title: "Editar" },
                               on: {
                                 click: function ($event) {
                                   _vm.modificar = true
@@ -33145,20 +33160,31 @@ var render = function () {
                                 },
                               },
                             },
-                            [_vm._v("Editar")]
+                            [
+                              _c("i", {
+                                staticClass: "fa fa-pencil-square",
+                                attrs: { "aria-hidden": "true" },
+                              }),
+                            ]
                           ),
                           _vm._v(" "),
                           _c(
                             "button",
                             {
                               staticClass: "btn btn-danger",
+                              attrs: { title: "Eliminar" },
                               on: {
                                 click: function ($event) {
                                   return _vm.eliminar(ciud.id)
                                 },
                               },
                             },
-                            [_vm._v("Eliminar")]
+                            [
+                              _c("i", {
+                                staticClass: "fa fa-trash",
+                                attrs: { "aria-hidden": "true" },
+                              }),
+                            ]
                           ),
                         ]),
                       ]),
@@ -33652,6 +33678,7 @@ var render = function () {
                             "a",
                             {
                               staticClass: "btn btn-warning",
+                              attrs: { title: "Editar" },
                               on: {
                                 click: function ($event) {
                                   _vm.modificar = true
@@ -33659,20 +33686,31 @@ var render = function () {
                                 },
                               },
                             },
-                            [_vm._v("Editar")]
+                            [
+                              _c("i", {
+                                staticClass: "fa fa-pencil-square",
+                                attrs: { "aria-hidden": "true" },
+                              }),
+                            ]
                           ),
                           _vm._v(" "),
                           _c(
                             "button",
                             {
                               staticClass: "btn btn-danger",
+                              attrs: { title: "Eliminar" },
                               on: {
                                 click: function ($event) {
                                   return _vm.eliminar(u.id)
                                 },
                               },
                             },
-                            [_vm._v("Eliminar")]
+                            [
+                              _c("i", {
+                                staticClass: "fa fa-trash",
+                                attrs: { "aria-hidden": "true" },
+                              }),
+                            ]
                           ),
                         ]),
                       ]),
