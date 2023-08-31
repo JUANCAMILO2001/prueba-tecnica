@@ -12,11 +12,9 @@
         </div>
     </div>
 </template>
-
 <script>
 import { Chart } from 'chart.js/auto';
 import axios from 'axios';
-
 export default {
     mounted() {
         this.fetchAndCreateChart();
@@ -25,7 +23,7 @@ export default {
         async fetchCityNames(cityIds) {
             try {
                 const response = await axios.get('/get-city-names', {
-                    params: { cityIds }, // Envía los IDs de ciudad al servidor
+                    params: { cityIds },
                 });
                 return response.data;
             } catch (error) {
@@ -37,22 +35,14 @@ export default {
             try {
                 const response = await axios.get('/users-by-city');
                 const cityData = response.data;
-
-                // Obtén los datos para el gráfico
                 const cityLabels = cityData.map(city => city.city_id);
                 const userCounts = cityData.map(city => city.user_count);
-
-                // Obtén los nombres de las ciudades correspondientes a los IDs
                 const cityNames = await this.fetchCityNames(cityLabels);
-
-                // Configura el contexto del lienzo
                 const ctx = this.$refs.chartCanvas.getContext('2d');
-
-                // Configura el gráfico utilizando Chart.js
                 new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: cityNames, // Utiliza los nombres de las ciudades en lugar de los IDs
+                        labels: cityNames,
                         datasets: [
                             {
                                 label: 'Usuarios por Ciudad',
@@ -74,9 +64,7 @@ export default {
         },
     },
 };
-
 </script>
-
 <style scoped>
 .chart-container {
     max-width: 600px;

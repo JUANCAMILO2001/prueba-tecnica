@@ -26,7 +26,7 @@
                             <div class="col-md-6">
                                     <label for="document_number" class="col-md-6 col-form-label ">{{ __('Numero Documento') }}</label>
                                     <div>
-                                        <input id="document_number" type="text" class="form-control @error('document_number') is-invalid @enderror" name="document_number" value="{{ old('document_number') }}" required autocomplete="document_number" autofocus>
+                                        <input id="document_number" type="number" class="form-control @error('document_number') is-invalid @enderror" name="document_number" value="{{ old('document_number') }}" required autocomplete="document_number" autofocus>
                                         @error('document_number')
                                         <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

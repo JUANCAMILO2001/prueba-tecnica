@@ -6,7 +6,6 @@
                     <div class="card-header">
                         Usuarios Disponibles <span class="float-end"><button  @click="modificar=false; abrirModal();" type="button" class="btn btn-primary">Nuevo Usuario</button></span>
                     </div>
-
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 col-md-6 col-lg-3">
@@ -35,6 +34,9 @@
                                         <option v-for="city in cities" :key="city.id" :value="city.id">{{ city.name }}</option>
                                     </select>
                                 </div>
+                            </div>
+                            <div class="col-12">
+                                <p><span class="fw-bold">Contraseña por defecto:</span> admin123</p>
                             </div>
 
                         </div>
@@ -72,23 +74,17 @@
                                         </div>
                                     </td>
                                 </tr>
-
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <!-- The Modal -->
                     <div class="modal" :class="{mostrar:modal}">
                         <div class="modal-dialog">
                             <div class="modal-content">
-
-                                <!-- Modal Header -->
                                 <div class="modal-header">
                                     <h4 class="modal-title">{{titulomodal}}</h4>
                                     <button type="button" class="close" data-dismiss="modal" @click="cerrarModal();">&times;</button>
                                 </div>
-
-                                <!-- Modal body -->
                                 <div class="modal-body">
                                     <div class="mb-3">
                                         <label for="name">Nombre</label>
@@ -112,9 +108,7 @@
                                             <option v-for="city in cities" :key="city.id" :value="city.id">{{ city.name }}</option>
                                         </select>
                                         <span class="text-danger" v-if="errores.city_id">{{errores.city_id[0]}}</span>
-
                                     </div>
-
                                     <div class="mb-3">
                                         <label for="document_type">Tipo Documento</label>
                                         <input v-model="user.document_type" type="text" id="document_type" placeholder="Escriba el tipo de documento" class="form-control">
@@ -148,13 +142,11 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 </template>
-
 <script>
 import { Chart } from 'chart.js/auto';
 import axios from 'axios';
@@ -210,7 +202,6 @@ export default {
                 const documentNumberMatch = !this.filters.documentNumber || user.document_number.toString().includes(this.filters.documentNumber.toString()); // Filtrar si no se ingresa número de documento o si coincide con el número ingresado
                 return nameMatch && lastnameMatch && cityMatch && documentNumberMatch;
             });
-
             return filteredUsers;
         },
         async getCityName(cityId) {
@@ -272,8 +263,6 @@ export default {
                 });
             }
         },
-
-
         abrirModal(data={}){
             this.modal=1;
             if(this.modificar){

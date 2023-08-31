@@ -23,7 +23,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table">
@@ -37,37 +36,29 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="ciud in applyFilters()" :key="ciud.id">
-                                    <th scope="row">{{ciud.id}}</th>
-                                    <td>{{ciud.name}}</td>
-                                    <td>{{ciud.country}}</td>
-                                    <td title="Personas">{{ciud.population}}</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <a @click="modificar=true; abrirModal(ciud);"  class="btn btn-warning">Editar</a>
-                                            <button  @click="eliminar(ciud.id)" class="btn btn-danger">Eliminar</button>
-                                        </div>
-                                    </td>
-                                </tr>
-
+                                    <tr v-for="ciud in applyFilters()" :key="ciud.id">
+                                        <th scope="row">{{ciud.id}}</th>
+                                        <td>{{ciud.name}}</td>
+                                        <td>{{ciud.country}}</td>
+                                        <td title="Personas">{{ciud.population}}</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a @click="modificar=true; abrirModal(ciud);"  class="btn btn-warning">Editar</a>
+                                                <button  @click="eliminar(ciud.id)" class="btn btn-danger">Eliminar</button>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-
-
-                    <!-- The Modal -->
                     <div class="modal" :class="{mostrar:modal}">
                         <div class="modal-dialog">
                             <div class="modal-content">
-
-                                <!-- Modal Header -->
                                 <div class="modal-header">
                                     <h4 class="modal-title">{{titulomodal}}</h4>
                                     <button type="button" class="close" data-dismiss="modal" @click="cerrarModal();">&times;</button>
                                 </div>
-
-                                <!-- Modal body -->
                                 <div class="modal-body">
                                     <div class="mb-3">
                                         <label for="name">Ciudad</label>
@@ -85,23 +76,18 @@
                                         <span class="text-danger" v-if="errores.population">{{errores.population[0]}}</span>
                                     </div>
                                 </div>
-
-                                <!-- Modal footer -->
                                 <div class="modal-footer">
                                     <button @click="cerrarModal();" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                     <button  @click="guardar();"  type="button" class="btn btn-success" data-dismiss="modal">Guardar</button>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 </template>
-
 <script>
 import Swal from 'sweetalert2';
 export default {
@@ -138,7 +124,6 @@ export default {
             try {
                 const res = await axios.delete('/ciudads/' + id);
                 this.listar();
-
                 await Swal.fire({
                     icon: 'success',
                     title: 'Ciudad eliminada',
@@ -162,7 +147,6 @@ export default {
                 }
                 this.cerrarModal();
                 this.listar();
-
                 await Swal.fire({
                     icon: 'success',
                     title: 'Ciudad guardada',
