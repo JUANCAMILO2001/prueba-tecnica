@@ -141,13 +141,10 @@
                                         <span class="text-danger" v-if="errores.password">{{errores.password[0]}}</span>
                                     </div>
                                 </div>
-
-                                <!-- Modal footer -->
                                 <div class="modal-footer">
                                     <button @click="cerrarModal();" type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                     <button  @click="guardar();"  type="button" class="btn btn-success" data-dismiss="modal">Guardar</button>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -159,7 +156,13 @@
 </template>
 
 <script>
+import { Chart } from 'chart.js/auto';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 export default {
+    mounted() {
+        this.fetchAndCreateChart();
+    },
     data(){
         return{
             users:[],
@@ -193,13 +196,9 @@ export default {
         async listar() {
             const res = await axios.get('/users');
             this.users = res.data;
-
-            // Fetch city names for each user
             for (const user of this.users) {
                 await this.getCityName(user.city_id);
             }
-
-            // Fetch cities for filter selection
             const citiesResponse = await axios.get('/ciudads');
             this.cities = citiesResponse.data;
         },
@@ -223,9 +222,24 @@ export default {
                 this.$set(this.cityNames, cityId, 'N/A');
             }
         },
-        async eliminar(id){
-            const res= await axios.delete('/users/'+id);
-            this.listar();
+        async eliminar(id) {
+            try {
+                const res = await axios.delete('/users/' + id);
+                this.listar();
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Usuario eliminado',
+                    text: 'El usuario ha sido eliminado correctamente.',
+                });
+            } catch (error) {
+                console.error('Error al eliminar:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al eliminar',
+                    text: 'Ocurrió un error al intentar eliminar el usuario.',
+                });
+            }
         },
         async guardar() {
             try {
@@ -242,10 +256,20 @@ export default {
                 }
                 this.cerrarModal();
                 this.listar();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Usuario guardado',
+                    text: 'El usuario ha sido guardado correctamente.',
+                });
             }catch (error){
                 if(error.response.data){
                     this.errores=error.response.data.errors
                 }
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al guardar',
+                    text: 'Ocurrió un error al intentar guardar el usuario.',
+                });
             }
         },
 

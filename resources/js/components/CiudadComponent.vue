@@ -103,6 +103,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 export default {
     data(){
         return{
@@ -133,9 +134,24 @@ export default {
                 return nameMatch && countryMatch;
             });
         },
-        async eliminar(id){
-            const res= await axios.delete('/ciudads/'+id);
-            this.listar();
+        async eliminar(id) {
+            try {
+                const res = await axios.delete('/ciudads/' + id);
+                this.listar();
+
+                await Swal.fire({
+                    icon: 'success',
+                    title: 'Ciudad eliminada',
+                    text: 'La ciudad ha sido eliminada correctamente.',
+                });
+            } catch (error) {
+                console.error('Error al eliminar:', error);
+                await Swal.fire({
+                    icon: 'error',
+                    title: 'Error al eliminar',
+                    text: 'Ocurrió un error al intentar eliminar la ciudad.',
+                });
+            }
         },
         async guardar(){
             try {
@@ -146,10 +162,21 @@ export default {
                 }
                 this.cerrarModal();
                 this.listar();
+
+                await Swal.fire({
+                    icon: 'success',
+                    title: 'Ciudad guardada',
+                    text: 'La ciudad ha sido guardada correctamente.',
+                });
             }catch (error){
                 if(error.response.data){
                     this.errores=error.response.data.errors
                 }
+                await Swal.fire({
+                    icon: 'error',
+                    title: 'Error al guardar',
+                    text: 'Ocurrió un error al intentar guardar la ciudad.',
+                });
             }
         },
         abrirModal(data={}){
