@@ -18,6 +18,13 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        .mostrar{
+            display: list-item;
+            opacity: 1;
+            background: rgba(44,38,75,0.849);
+        }
+    </style>
 </head>
 <body>
     <div id="app">

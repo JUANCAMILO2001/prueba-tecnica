@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ciudad;
 use Illuminate\Http\Request;
+use App\Http\Requests\CiudadRequest;
 
 class CiudadController extends Controller
 {
@@ -12,8 +13,9 @@ class CiudadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request  $request)
     {
+
          return Ciudad::all();
     }
 
@@ -23,7 +25,7 @@ class CiudadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CiudadRequest $request)
     {
         $ciudad = new Ciudad;
         $ciudad->create($request->all());
@@ -47,7 +49,7 @@ class CiudadController extends Controller
      * @param  \App\Models\Ciudad  $ciudad
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ciudad $ciudad)
+    public function update(CiudadRequest $request, Ciudad $ciudad)
     {
         $ciudad->update($request->all());
     }

@@ -98,8 +98,8 @@ export default {
     },
     methods:{
         async listar(){
-             const res= await axios.get('/ciudads');
-             this.ciudads=res.data;
+            const res= await axios.get('/ciudads');
+            this.ciudads=res.data;
         },
         async eliminar(id){
             const res= await axios.delete('/ciudads/'+id);
@@ -115,20 +115,20 @@ export default {
             this.listar();
         },
         abrirModal(data={}){
-          this.modal=1;
-          if(this.modificar){
-              this.id=data.id;
-              this.titulomodal="Editar Ciudad";
-              this.ciudad.name=data.name;
-              this.ciudad.country=data.country;
-              this.ciudad.population=data.population;
-          }else{
-              this.id=0;
-              this.titulomodal="Crear Ciudad";
-              this.ciudad.name='';
-              this.ciudad.country='';
-              this.ciudad.population='';
-          }
+            this.modal=1;
+            if(this.modificar){
+                this.id=data.id;
+                this.titulomodal="Editar Ciudad";
+                this.ciudad.name=data.name;
+                this.ciudad.country=data.country;
+                this.ciudad.population=data.population;
+            }else{
+                this.id=0;
+                this.titulomodal="Crear Ciudad";
+                this.ciudad.name='';
+                this.ciudad.country='';
+                this.ciudad.population='';
+            }
         },
         cerrarModal(){
             this.modal=0;
@@ -145,5 +145,4 @@ export default {
     opacity: 1;
     background: rgba(44,38,75,0.849);
 }
-
 </style>

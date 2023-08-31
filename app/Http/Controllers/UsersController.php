@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ciudad;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UserRequest;
 
 class UsersController extends Controller
 {
@@ -23,10 +26,20 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $user = new User;
-        $user->create($request->all());
+
+        User::create([
+            'document_type' => $request->document_type,
+            'document_number' => $request->document_number,
+            'name' => $request->name,
+            'lastname' => $request->lastname,
+            'birthdate' => $request->birthdate,
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'city_id' => $request->city_id,
+        ]);
     }
 
     /**
@@ -49,7 +62,30 @@ class UsersController extends Controller
      */
     public function update(Request $request, User  $user)
     {
-        $user->update($request->all());
+        $request->validate([
+            'document_type' => 'required',
+            'document_number' => 'required',
+            'name' => 'required',
+            'lastname' => 'required',
+            'birthdate' => 'required',
+            'username' => 'required',
+            'email' => 'required',
+            'password' => 'nullable',
+            'city_id' => 'required',
+        ]);
+
+
+        $data = $request->all();
+
+        // Verificar si se proporcionó una nueva contraseña
+        if (!empty($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            // Eliminar la clave "password" del array si no se proporcionó una nueva contraseña
+            unset($data['password']);
+        }
+        $user->update($data);
+
     }
 
     /**
@@ -61,5 +97,16 @@ class UsersController extends Controller
     public function destroy(User  $user)
     {
         $user->delete();
+    }
+
+    public function getCity($id)
+    {
+        $city = Ciudad::find($id);
+
+        if (!$city) {
+            return response()->json(['error' => 'City not found'], 404);
+        }
+
+        return response()->json($city);
     }
 }

@@ -8,6 +8,36 @@
                     </div>
 
                     <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="mb-3">
+                                    <label for="filterName">Filtrar por Nombre</label>
+                                    <input v-model="filters.name" type="text" id="filterName" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="mb-3">
+                                    <label for="filterLastName">Filtrar por Apellido</label>
+                                    <input v-model="filters.lastname" type="text" id="filterLastName" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="mb-3">
+                                    <label for="filterDocumentNumber">Filtrar por Número de Documento</label>
+                                    <input v-model="filters.documentNumber" type="number" id="filterDocumentNumber" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <div class="mb-3">
+                                    <label for="filterCity">Filtrar por Ciudad</label>
+                                    <select v-model="filters.city" id="filterCity" class="form-control">
+                                        <option value="">Todas las Ciudades</option>
+                                        <option v-for="city in cities" :key="city.id" :value="city.id">{{ city.name }}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -25,12 +55,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="u in users" :key="u.id">
+                                <tr v-for="u in filteredUsers" :key="u.id">
                                     <th scope="row">{{u.id}}</th>
                                     <td>{{u.name}}</td>
                                     <td>{{u.lastname}}</td>
                                     <td>{{u.birthdate}}</td>
-                                    <td>{{u.city_id}}</td>
+                                    <td>{{cityNames[u.city_id]}}</td>
                                     <td>{{u.document_type}}</td>
                                     <td>{{u.document_number}}</td>
                                     <td>{{u.email}}</td>
@@ -61,16 +91,54 @@
                                 <!-- Modal body -->
                                 <div class="modal-body">
                                     <div class="mb-3">
-                                        <label for="name">Ciudad</label>
-                                        <input v-model="user.name" type="text" id="name" placeholder="Escriba la Ciudad" class="form-control">
+                                        <label for="name">Nombre</label>
+                                        <input v-model="user.name" type="text" id="name" placeholder="Escriba el nombre" class="form-control">
+                                        <span class="text-danger" v-if="errores.name">{{errores.name[0]}}</span>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="country">Pais</label>
-                                        <input v-model="user.lastname" type="text" id="country" placeholder="Escriba el Pais" class="form-control">
+                                        <label for="lastname">Apellido</label>
+                                        <input v-model="user.lastname" type="text" id="lastname" placeholder="Escriba el apellido" class="form-control">
+                                        <span class="text-danger" v-if="errores.lastname">{{errores.lastname[0]}}</span>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="population">Población</label>
-                                        <input v-model="user.birthdate" type="date" id="population" placeholder="Escriba la Población" class="form-control">
+                                        <label for="birthdate">Fecha Nacimiento</label>
+                                        <input v-model="user.birthdate" type="date" id="birthdate" placeholder="Escriba fecha nacimiento" class="form-control">
+                                        <span class="text-danger" v-if="errores.birthdate">{{errores.birthdate[0]}}</span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="city_id">Ciudad Nacimiento</label>
+                                        <select v-model="user.city_id" id="city_id" class="form-control">
+                                            <option value="">Seleccionar Ciudad</option>
+                                            <option v-for="city in cities" :key="city.id" :value="city.id">{{ city.name }}</option>
+                                        </select>
+                                        <span class="text-danger" v-if="errores.city_id">{{errores.city_id[0]}}</span>
+
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="document_type">Tipo Documento</label>
+                                        <input v-model="user.document_type" type="text" id="document_type" placeholder="Escriba el tipo de documento" class="form-control">
+                                        <span class="text-danger" v-if="errores.document_type">{{errores.document_type[0]}}</span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="document_number">Numero Documento</label>
+                                        <input v-model="user.document_number" type="number" id="document_number" placeholder="Escriba el numero documento" class="form-control">
+                                        <span class="text-danger" v-if="errores.document_number">{{errores.document_number[0]}}</span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="email">Correo Eléctronico</label>
+                                        <input v-model="user.email" type="email" id="email" placeholder="Escriba el correo eléctronico" class="form-control">
+                                        <span class="text-danger" v-if="errores.email">{{errores.email[0]}}</span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="username">Apodo Usuario</label>
+                                        <input v-model="user.username" type="text" id="username" placeholder="Escriba el apodo del usuario" class="form-control">
+                                        <span class="text-danger" v-if="errores.username">{{errores.username[0]}}</span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password">Contraseña</label>
+                                        <input v-model="user.password" type="password" id="password" class="form-control">
+                                        <span class="text-danger" v-if="errores.password">{{errores.password[0]}}</span>
                                     </div>
                                 </div>
 
@@ -110,26 +178,80 @@ export default {
                 password:'',
             },
             id:0,
+            cityNames: {},
+            filters: {
+                name: '',
+                lastname: '',
+                city: '',
+                documentNumber: '',
+            },
+            cities: [],
+            errores:{},
         }
     },
     methods:{
-        async listar(){
-            const res= await axios.get('/users');
-            this.users=res.data;
+        async listar() {
+            const res = await axios.get('/users');
+            this.users = res.data;
+
+            // Fetch city names for each user
+            for (const user of this.users) {
+                await this.getCityName(user.city_id);
+            }
+
+            // Fetch cities for filter selection
+            const citiesResponse = await axios.get('/ciudads');
+            this.cities = citiesResponse.data;
+        },
+        applyFilters() {
+            const filteredUsers = this.users.filter(user => {
+                const nameMatch = user.name.toLowerCase().includes(this.filters.name.toLowerCase());
+                const lastnameMatch = user.lastname.toLowerCase().includes(this.filters.lastname.toLowerCase());
+                const cityMatch = !this.filters.city || user.city_id === this.filters.city;
+                const documentNumberMatch = !this.filters.documentNumber || user.document_number.toString().includes(this.filters.documentNumber.toString()); // Filtrar si no se ingresa número de documento o si coincide con el número ingresado
+                return nameMatch && lastnameMatch && cityMatch && documentNumberMatch;
+            });
+
+            return filteredUsers;
+        },
+        async getCityName(cityId) {
+            try {
+                const response = await axios.get(`/ciudads/${cityId}`);
+                this.$set(this.cityNames, cityId, response.data.name);
+            } catch (error) {
+                console.error('Error fetching city:', error);
+                this.$set(this.cityNames, cityId, 'N/A');
+            }
         },
         async eliminar(id){
             const res= await axios.delete('/users/'+id);
             this.listar();
         },
-        async guardar(){
-            if(this.modificar){
-                const res= await axios.put('/users/'+this.id,this.user);
-            }else{
-                const res= await axios.post('/users',this.user);
+        async guardar() {
+            try {
+                if (this.modificar) {
+                    const res = await axios.put('/users/' + this.id, this.user);
+                } else {
+                    // Remove password if it's empty
+                    if (this.user.password.trim() !== '') {
+                        this.user.password = this.user.password.trim(); // Remove extra spaces
+                    } else {
+                        delete this.user.password;
+                    }
+                    const res = await axios.post('/users', this.user);
+                }
+                this.cerrarModal();
+                this.listar();
+            }catch (error){
+                if(error.response.data){
+                    this.errores=error.response.data.errors
+                }
             }
-            this.cerrarModal();
-            this.listar();
+
+
         },
+
+
         abrirModal(data={}){
             this.modal=1;
             if(this.modificar){
@@ -140,7 +262,7 @@ export default {
                 this.user.name=data.name;
                 this.user.lastname=data.lastname;
                 this.user.birthdate=data.birthdate;
-                this.user.city_id=data.city_id;
+                this.user.city_id = data.city_id;
                 this.user.email=data.email;
                 this.user.username=data.username;
                 this.user.password=data.password;
@@ -160,18 +282,17 @@ export default {
         },
         cerrarModal(){
             this.modal=0;
+            this.errores={};
         },
     },
     created() {
         this.listar();
     },
+    computed: {
+        filteredUsers() {
+            return this.applyFilters();
+        }
+    },
 }
 </script>
-<style>
-.mostrar{
-    display: list-item;
-    opacity: 1;
-    background: rgba(44,38,75,0.849);
-}
 
-</style>
